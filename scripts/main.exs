@@ -12,7 +12,11 @@ defmodule AttendanceSystem.Main do
       page: "waiting",
       participants: %{},
       joined: 0,
-      number: [0, 0],
+      number: [-1],
+      max: 5,
+      combo: 5,
+      count: 0,
+      seconds: 1,
       answered: 0,
       question_text: %{}
     }
@@ -23,6 +27,7 @@ defmodule AttendanceSystem.Main do
       question_text: data.question_text,
       active: true,
       joined: 1,
+      number: [],
       snum: "",
     }
   end

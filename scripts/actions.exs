@@ -1,6 +1,7 @@
 defmodule AttendanceSystem.Actions do
   alias AttendanceSystem.Participant
   alias AttendanceSystem.Host
+  alias AttendanceSystem.Main
 
   def change_page(data, page) do
     action = get_action("change page", page)
@@ -21,14 +22,7 @@ defmodule AttendanceSystem.Actions do
 
   def all_reset(data) do
     haction = get_action("reset", %{ participants: data.participants, joined: data.joined, answered: data.answered, rational: 0, irational: 0, })
-    paction = get_action("reset", %{
-         question_text: data.question_text,
-          sequence: "question1",
-          question1: 0,
-          question2: 0,
-          active: true,
-          joined: Map.size(data.participants)
-        })
+    paction = get_action("reset", Main.new_patricipant(data))
     allaction = Enum.reduce(data.participants, %{}, fn {id, value}, acc -> dispatch_to(acc, id, Map.put(paction, :payload, Map.put(paction.payload, :qswap, value.qswap))) end)
     format(data, haction, allaction)
   end

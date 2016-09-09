@@ -38,7 +38,7 @@ defmodule AttendanceSystem do
       {"all reset", _}      -> Host.all_reset(data)
       {"send result", result} -> Host.send_result(data, result)
       {"update question", question_text} -> Host.update_question(data, question_text)
-      {"update number", _} -> Host.update_number(data) 
+      {"update number", num} -> Host.update_number(data, num) 
       _ -> {:ok, %{"data" => data}}
     end
     wrap_result(result)
@@ -49,6 +49,7 @@ defmodule AttendanceSystem do
 #    Logger.debug("[Allais Paradox] #{action} #{params}")
     result = case {action, params} do
       {"fetch contents", _} -> Participant.fetch_contents(data, id)
+      {"press numeric", num} -> Participant.press_numeric(data, id, num)
       _ -> {:ok, %{"data" => data}}
     end
     wrap_result(result)

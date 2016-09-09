@@ -26,7 +26,9 @@ defmodule AttendanceSystem.Host do
     end), %{}))
                 |> Map.put(:joined, Map.size(data.participants))
                 |> Map.put(:answered, 0)
-                |> Map.put(:number, [:rand.uniform(10) - 1, -1])
+                |> Map.put(:number, [:rand.uniform(10) - 1])
+                |> Map.put(:max, data.max)
+                |> Map.put(:seconds, data.seconds)
     Actions.all_reset(data)
   end
 
@@ -37,9 +39,20 @@ defmodule AttendanceSystem.Host do
     Actions.update_question(data, question_text)
   end
 
-  def update_number(data) do
-    [now, _] = data.number
-    data = data |> Map.put(:number, [:rand.uniform(10) - 1, now])
+  def update_number(data, num) do
+    if length(data.number) >= data.max do
+      data = data |> Map.put(:number, tl(data.number) ++ [num])
+                      |> Map.put(:participants, data.participants
+                      |> Enum.map(fn {key, value} -> {key, value
+                      |> Map.put(:number, tl(valule.number) ++ [num])} end)
+                      |> Enum.into(%{}))
+    else
+      data = data |> Map.put(:number, data.number ++ [num])
+                      |> Map.put(:participants, data.participants
+                      |> Enum.map(fn {key, value} -> {key, value
+                      |> Map.put(:number, valule.number ++ [num])} end)
+                      |> Enum.into(%{}))
+    end
     Actions.update_number(data)
   end
 

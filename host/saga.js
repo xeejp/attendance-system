@@ -60,7 +60,10 @@ function* updateQuestionSaga() {
 function* updateNumberSaga() {
   while(true) {
     yield take(`${updateNumber}`)
-    yield call(sendData, 'update number')
+    const { number } = yield select({ number } => { number })
+    var r = Math.floor( Math.random() * 10)
+    while(r == number[number.length - 1]) r = Math.floor( Math.random() * 10)
+    yield call(sendData, 'update number', r)
   }
 }
 

@@ -6,7 +6,7 @@ import { fetchContents } from './actions'
 import RaisedButton from 'material-ui/RaisedButton'
 import Divider from 'material-ui/Divider'
 
-import fullScreenMode from './fullScreenMode'
+import FullScreenMode from './FullScreenMode'
 import PageButtons from './PageButtons'
 import EditQuestion from './EditQuestion'
 import Users from './Users'
@@ -18,7 +18,7 @@ const mapStateToProps = ({loading, page}) => ({
 class App extends Component {
   constructor(props, context) {
     super(props, context)
-    this.state = { fullScreenMode: false }
+    this.state = { FullScreenFlag: false }
   }
 
   componentDidMount() {
@@ -26,16 +26,16 @@ class App extends Component {
     dispatch(fetchContents())
   }
 
-  fullScreenMode() {
-    this.setState({ fullScreenMode: true })
+  changeFullScreen() {
+    this.setState({ FullScreenFlag: true })
   }
 
   render() {
     const { loading, page } = this.props
     if (loading) {
       return <p>ロード中です。</p>
-    } else if (this.state.fullScreenMode) {
-      return <fullScreenMode />
+    } else if (this.state.FullScreenFlag) {
+      return <FullScreenMode />
     } else {
       return (
         <div>
@@ -48,7 +48,8 @@ class App extends Component {
           />
           <Users /><br />
           <EditQuestion /><br />
-          <RaisedButton label={"フルスクリーンモード"} primary={true} onClick={this.fullScreenMode.bind(this)}/>
+
+          <RaisedButton label={"フルスクリーンモード"} primary={true} onClick={this.changeFullScreen.bind(this)}/><br />
         </div>
       )
     }
