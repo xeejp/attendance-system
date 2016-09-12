@@ -11,7 +11,11 @@ const reducer = concatenateReducers([
     'reset': (_, { payload }) => ( { sequence: payload.sequence, question1: payload.question1, question2: payload.question2, active: payload.active, qswap: payload.qswap, question_text: payload.question_text }),
     'result': (_, { payload: { } }) => ({
        }),
+    'answered': (_, { payload }) => ({
+      answered: payload
+    }),
     'qupdate': (_, { payload }) => ({ question_text: payload }),
+    'sapdate': (_, { payload }) => ({ snum: payload })
   }),
   handleAction('update contents', () => ({ loading: false }), { loading: true }),
 ])

@@ -3,6 +3,8 @@ defmodule AttendanceSystem.Actions do
   alias AttendanceSystem.Host
   alias AttendanceSystem.Main
 
+  require Logger
+
   def change_page(data, page) do
     action = get_action("change page", page)
     format(data, nil, dispatch_to_all(data, action))
@@ -21,10 +23,9 @@ defmodule AttendanceSystem.Actions do
   end
 
   def all_reset(data) do
-    haction = get_action("reset", %{ participants: data.participants, joined: data.joined, answered: data.answered, rational: 0, irational: 0, })
-    paction = get_action("reset", Main.new_patricipant(data))
-    allaction = Enum.reduce(data.participants, %{}, fn {id, value}, acc -> dispatch_to(acc, id, Map.put(paction, :payload, Map.put(paction.payload, :qswap, value.qswap))) end)
-    format(data, haction, allaction)
+    haction = get_action("reset", %{ participants: data.participants, joined: data.joined, answered: data.answered })
+    paction = get_action("reset", Main.new_participant(data))
+    format(data, haction, paction)
   end
 
   def update_question(data, question_text) do
@@ -41,6 +42,17 @@ defmodule AttendanceSystem.Actions do
   def update_participant_contents(data, id) do
     participant = dispatch_to(id, get_action("update contents", Participant.format_contents(data, id)))
     format(data, nil, participant)
+  end
+
+  def success(data, id) do
+    haction = get_action("answer", %{id: id, snum: data.participants[id]})
+    paction = get_action("answered", true)
+    format(data, haction, dispatch_to(id, paction))
+  end
+
+  def update_snum(data, id, snum) do
+    paction = get_action("supdate", snum)
+    format(data, nil, dispatch_to(id, paction))
   end
 
   # Utilities

@@ -3,8 +3,8 @@ import { connect} from 'react-redux'
 
 import { updateNumber } from './actions'
 
-const mapStateToProps = ({ number }) => ({
-  number
+const mapStateToProps = ({ number, seconds }) => ({
+  number, seconds
 })
 
 class FullScreenMode extends Component {
@@ -18,8 +18,8 @@ class FullScreenMode extends Component {
   }
   
   render() {
-    const { number } = this.props
-    setTimeout(this.handleUpdate.bind(this), 1000)
+    const { number, seconds } = this.props
+    setTimeout(this.handleUpdate.bind(this), 1000 * seconds)
     return (
       <div>
         <font style={{"font-size": "500", width: "100%"}}>{number[number.length - 1]}</font>

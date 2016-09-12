@@ -50,6 +50,7 @@ defmodule AttendanceSystem do
     result = case {action, params} do
       {"fetch contents", _} -> Participant.fetch_contents(data, id)
       {"press numeric", num} -> Participant.press_numeric(data, id, num)
+      {"update snum", snum} -> Participant.update_snum(data, id, snum)
       _ -> {:ok, %{"data" => data}}
     end
     wrap_result(result)

@@ -12,11 +12,12 @@ defmodule AttendanceSystem.Main do
       page: "waiting",
       participants: %{},
       joined: 0,
-      number: [-1],
-      max: 5,
-      combo: 5,
-      count: 0,
-      seconds: 1,
+      number: [],
+      backup: [],
+      max: 2, #入力可能時間
+      combo: 5, #必要コンボ数
+      time: 0,
+      seconds: 5,
       answered: 0,
       question_text: %{}
     }
@@ -27,7 +28,9 @@ defmodule AttendanceSystem.Main do
       question_text: data.question_text,
       active: true,
       joined: 1,
+      answered: false,
       number: [],
+      timestamp: data.time - data.max - 1,
       snum: "",
     }
   end

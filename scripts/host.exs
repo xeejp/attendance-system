@@ -22,13 +22,16 @@ defmodule AttendanceSystem.Host do
   def all_reset(data) do
     flag = true
     data = data |> Map.put(:participants, Enum.into(Enum.map(data.participants, fn { id, _ } ->
-      {id, Main.new_participants}
+      {id, Main.new_participant(data)}
     end), %{}))
                 |> Map.put(:joined, Map.size(data.participants))
                 |> Map.put(:answered, 0)
-                |> Map.put(:number, [:rand.uniform(10) - 1])
+                |> Map.put(:number, [])
+                |> Map.put(:backup, [])
                 |> Map.put(:max, data.max)
                 |> Map.put(:seconds, data.seconds)
+                |> Map.put(:combo, data.combo)
+                |> Map.put(:time, 0)
     Actions.all_reset(data)
   end
 
@@ -42,17 +45,15 @@ defmodule AttendanceSystem.Host do
   def update_number(data, num) do
     if length(data.number) >= data.max do
       data = data |> Map.put(:number, tl(data.number) ++ [num])
-                      |> Map.put(:participants, data.participants
-                      |> Enum.map(fn {key, value} -> {key, value
-                      |> Map.put(:number, tl(valule.number) ++ [num])} end)
-                      |> Enum.into(%{}))
     else
       data = data |> Map.put(:number, data.number ++ [num])
-                      |> Map.put(:participants, data.participants
-                      |> Enum.map(fn {key, value} -> {key, value
-                      |> Map.put(:number, valule.number ++ [num])} end)
-                      |> Enum.into(%{}))
     end
+    if length(data.backup) >= data.combo + 1 do
+      data = data |> Map.put(:backup, tl(data.backup) ++ [num])
+    else
+      data = data |> Map.put(:backup, data.backup ++ [num])
+    end
+    data = data |> Map.put(:time, data.time + 1)
     Actions.update_number(data)
   end
 

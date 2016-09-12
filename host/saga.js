@@ -6,7 +6,10 @@ function* changePageSaga() {
   while (true) {
     const { payload } = yield take(`${submitPage}`)
     sendData('change page', payload)
-    if(payload == "waiting" || payload == "experiment") yield call(sendData, 'all reset')
+    if(payload == "waiting" || payload == "experiment") {
+      yield call(sendData, 'all reset')
+      yield call(sendData, 'update number', Math.floor( Math.random() * 10))
+    }
     yield put(changePage(payload))
   }
 }
@@ -60,7 +63,7 @@ function* updateQuestionSaga() {
 function* updateNumberSaga() {
   while(true) {
     yield take(`${updateNumber}`)
-    const { number } = yield select({ number } => { number })
+    const { number: number } = yield select()
     var r = Math.floor( Math.random() * 10)
     while(r == number[number.length - 1]) r = Math.floor( Math.random() * 10)
     yield call(sendData, 'update number', r)
