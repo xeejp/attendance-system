@@ -8,6 +8,7 @@ const mapStateToProps = ({}) => ({
 
 const Result = ({}) => (
   <div>
+    出席確認は終了しました。
   </div>
 )
 

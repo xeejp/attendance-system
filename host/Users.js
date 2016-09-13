@@ -6,8 +6,8 @@ import { Card, CardHeader, CardText } from 'material-ui/Card'
 
 import { openParticipantPage } from './actions'
 
-const User = ({ id, status, openParticipantPage }) => (
-  <tr><td><a onClick={openParticipantPage(id)}>{id}</a></td><td>{status}</td></tr>
+const User = ({ id, snum, status, openParticipantPage }) => (
+  <tr><td><a onClick={openParticipantPage(id)}>{id}</a></td><th>{snum}</th><td>{status}</td></tr>
 )
 
 const mapStateToProps = ({ participants, page, }) => ({ participants, page })
@@ -21,14 +21,15 @@ const mapDispatchToProps = (dispatch) => {
 
 const UsersList = ({participants, page, openParticipantPage }) => (
   <table>
-    <thead><tr><th>id</th><th>status</th></tr></thead>
+    <thead><tr><th>id</th><th>学籍番号</th><th>status</th></tr></thead>
     <tbody>
       {
         Object.keys(participants).map(id => (
           <User
             key={id}
             id={id}
-            status={(participants[id].snum != "")? participants[id].snum : "未回答"}
+            snum={participants[id].snum}
+            status={(participants[id].snum != "")? "回答済み" : "未回答"}
             openParticipantPage={openParticipantPage}
           />
         ))

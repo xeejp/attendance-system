@@ -28,18 +28,17 @@ defmodule AttendanceSystem.Host do
                 |> Map.put(:answered, 0)
                 |> Map.put(:number, [])
                 |> Map.put(:backup, [])
-                |> Map.put(:max, data.max)
-                |> Map.put(:seconds, data.seconds)
-                |> Map.put(:combo, data.combo)
                 |> Map.put(:time, 0)
     Actions.all_reset(data)
   end
 
   def update_question(data, question_text) do
-    data = data |> Map.put(:question_text, question_text)
-                     |> Map.put(:participants, Enum.into(Enum.map(data.participants, fn { id, value } ->
-                       { id, value |> Map.put(:question_text, question_text) } end), %{}))
-    Actions.update_question(data, question_text)
+    data = data |> Map.put(:max, question_text["max"])
+                    |> Map.put(:combo, question_text["combo"])
+                    |> Map.put(:seconds, question_text["seconds"])
+                    |> Map.put(:timeout, question_text["timeout"])
+                    |> Map.put(:timeoutable, question_text["timeoutable"])
+    Actions.update_question(data)
   end
 
   def update_number(data, num) do
@@ -54,6 +53,9 @@ defmodule AttendanceSystem.Host do
       data = data |> Map.put(:backup, data.backup ++ [num])
     end
     data = data |> Map.put(:time, data.time + 1)
+    Logger.debug("number: #{Enum.join(data.number, ", ")}")
+    Logger.debug("backup: #{Enum.join(data.backup, ", ")}")
+    Logger.debug("time : #{data.time}")
     Actions.update_number(data)
   end
 

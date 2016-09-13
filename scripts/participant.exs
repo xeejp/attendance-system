@@ -10,11 +10,12 @@ defmodule AttendanceSystem.Participant do
   end
 
   def press_numeric(data, id, num) do
-    if data.participants[id].timestamp <= data.time - data.max do
+    if data.participants[id].timestamp < data.time - data.max do
        data = data |> put_in([:participants, id, :number], [])
     end
     data = data |> put_in([:participants, id, :number], data.participants[id].number ++ [num])
                     |> put_in([:participants, id, :timestamp], data.time)
+    Logger.debug("pnumber: #{Enum.join(data.participants[id].number, ", ")} timestamp: #{data.participants[id].timestamp}")
     if(length(data.participants[id].number) == data.combo) do
      a = String.slice(Enum.join(data.backup, ""), 0, data.combo)
      b = String.slice(Enum.join(data.backup, ""), 1, data.combo + 1)

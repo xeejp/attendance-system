@@ -15,7 +15,7 @@ const reducer = concatenateReducers([
       answered: payload
     }),
     'qupdate': (_, { payload }) => ({ question_text: payload }),
-    'sapdate': (_, { payload }) => ({ snum: payload })
+    'supdate': (_, { payload }) => ({ snum: payload })
   }),
   handleAction('update contents', () => ({ loading: false }), { loading: true }),
 ])

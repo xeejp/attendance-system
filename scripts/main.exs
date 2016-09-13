@@ -16,8 +16,10 @@ defmodule AttendanceSystem.Main do
       backup: [],
       max: 2, #入力可能時間
       combo: 5, #必要コンボ数
+      seconds: 1, #何秒毎に数字を出すか
+      timeout: 1, #何秒で終了するか
+      timeoutable: true, #自動的に終了するか
       time: 0,
-      seconds: 5,
       answered: 0,
       question_text: %{}
     }

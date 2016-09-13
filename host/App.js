@@ -1,7 +1,7 @@
 ﻿import React, { Component } from 'react'
 import { connect } from 'react-redux'
 
-import { fetchContents } from './actions'
+import { fetchContents, changePage } from './actions'
 
 import RaisedButton from 'material-ui/RaisedButton'
 import Divider from 'material-ui/Divider'
@@ -11,8 +11,8 @@ import PageButtons from './PageButtons'
 import EditQuestion from './EditQuestion'
 import Users from './Users'
 
-const mapStateToProps = ({loading, page}) => ({
-  loading, page
+const mapStateToProps = ({loading, page, timeout, timeoutable}) => ({
+  loading, page, timeout, timeoutable
 })
 
 class App extends Component {
@@ -30,11 +30,19 @@ class App extends Component {
     this.setState({ FullScreenFlag: true })
   }
 
+  changePage() {
+    clearInterval(this.timer)
+    this.setState({ FullScreenFlag: false })
+    const { dispatch } = this.props
+    dispatch(changePage("result"))
+  }
+
   render() {
-    const { loading, page } = this.props
+    const { loading, page, timeout, timeoutable } = this.props
     if (loading) {
       return <p>ロード中です。</p>
     } else if (this.state.FullScreenFlag) {
+      if(timeoutable) this.timer = setInterval(this.changePage.bind(this), timeout * 60000)
       return <FullScreenMode />
     } else {
       return (
@@ -48,7 +56,6 @@ class App extends Component {
           />
           <Users /><br />
           <EditQuestion /><br />
-
           <RaisedButton label={"フルスクリーンモード"} primary={true} onClick={this.changeFullScreen.bind(this)}/><br />
         </div>
       )

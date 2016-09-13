@@ -28,10 +28,9 @@ defmodule AttendanceSystem.Actions do
     format(data, haction, paction)
   end
 
-  def update_question(data, question_text) do
-    haction = get_action("qupdate", question_text)
-    paction = get_action("qupdate", question_text)
-    format(data, haction, dispatch_to_all(data, paction))
+  def update_question(data) do
+    haction = get_action("qupdate", %{max: data.max, combo: data.combo, seconds: data.seconds})
+    format(data, haction)
   end
 
   def update_number(data) do
@@ -45,7 +44,7 @@ defmodule AttendanceSystem.Actions do
   end
 
   def success(data, id) do
-    haction = get_action("answer", %{id: id, snum: data.participants[id]})
+    haction = get_action("answer", %{id: id, snum: data.participants[id].snum})
     paction = get_action("answered", true)
     format(data, haction, dispatch_to(id, paction))
   end

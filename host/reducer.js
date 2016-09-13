@@ -9,13 +9,14 @@ const reducer = concatenateReducers([
     [changePage]: (_, { payload }) => ({ page: payload }),
     'join': ({ participants }, { payload: { id, participant, joined } }) => ({
       participants: Object.assign({}, participants, {[id]: participant}), joined: joined}),
-    'answer': ({ participants }, { payload: { id, participant } }) => ({
-      participants: Object.assign({}, participants, {[id]: participant})}),
+    'answer': ({ participants }, { payload: { id, snum } }) => {
+      const result = Object.assign({}, participants, { [id]: Object.assign({}, participants[id], { snum: snum}) })
+      return { participants: result }},
     'reset': (_, { payload: {participants, joined, answered} }) => ({
-      participants: participants, joined: joined, answered: answered }),
+      participants: participants, joined: joined, answered: answered, number: [], backup: [] }),
     'result': (_, { payload: {oneone, onetwo, twoone, twotwo} }) => ({
       oneone: oneone, onetwo: onetwo, twoone:twoone, twotwo: twotwo, answered: 0 }),
-    'qupdate': (_, { payload }) => ({ question_text: payload }),
+    'qupdate': (_, { payload: { max, combo, seconds } }) => ({ max: max, combo: combo, seconds: seconds }),
     'nupdate': (_, { payload }) => ({ number: payload }),
   }, {}),
   handleAction('update contents', () => ({ loading: false }), { loading: true })

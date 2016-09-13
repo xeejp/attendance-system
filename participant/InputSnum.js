@@ -15,23 +15,33 @@ class InputSnum extends Component {
   }
 
   handleUpdate(event){
-    this.setState({ snum: event.target })
+    this.setState({ snum: event.target.value })
   }
 
   submit() {
     if(this.state.snum != "") {
       const { dispatch } = this.props
-      dispatch(updateSnum(this.state.snum))
+      dispatch(updateSnum(this.state.snum.replace(/[Ａ-Ｚａ-ｚ０-９]/g, s => { return String.fromCharCode(s.charCodeAt(0) - 0xFEE0) }).replace(/[^\x01-\x7E]/g, "").trim()))
     }
   }
+
+  	handleKeyDown(event) {
+    	if (event.key === "Enter" || event.keyCode === 13) { // Enter
+      		this.submit()
+   	 	}
+  	}
 
   render() {
     return (<div>
     <h5>学籍番号を入力してください。</h5>
-    <TextField hintText={"学籍番号"} 
-    onBlur={this.handleUpdate.bind(this)}
+    <TextField
+      hintText={"学籍番号"}
+      onChange={this.handleUpdate.bind(this)}
+      onKeyDown={this.handleKeyDown.bind(this)}
     />
-    <RaisedButton label={"送信"} primary={true} onClick={this.submit.bind(this)} />
+    <RaisedButton label={"送信"} primary={true} disabled={this.state.snum == ""} onClick={this.submit.bind(this)} />
    </div>)
   }
 }
+
+export default connect(mapStateToProps)(InputSnum)
