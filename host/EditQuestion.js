@@ -96,7 +96,7 @@ class EditQuestion extends Component {
 
   handleCheckChange(event, checked) {
     console.log(checked)
-    this.setState({ question_text: Object.assign({}, this.state.question_text, { timeoutable: ckecked}) })
+    this.setState({ question_text: Object.assign({}, this.state.question_text, { timeoutable: checked}) })
   }
 
   handleOpen() {

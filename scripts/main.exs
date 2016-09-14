@@ -22,14 +22,12 @@ defmodule AttendanceSystem.Main do
       timeoutable: true, #自動的に終了するか
       time: 0,
       answered: 0,
-      question_text: %{}
     }
   end
 
   def new_participant(data) do
     {_, {hour, min, sec}} = :calendar.local_time
     %{
-      question_text: data.question_text,
       active: true,
       starttime: "#{String.rjust("#{hour}", 2, ?0)}:#{String.rjust("#{sec}", 2, ?0)}:#{String.rjust("#{sec}", 2, ?0)}",
       finishtime: "",

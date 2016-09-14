@@ -21,7 +21,7 @@ class FullScreenMode extends Component {
     const { number, seconds } = this.props
     setTimeout(this.handleUpdate.bind(this), 1000 * seconds)
     return (
-      <div>
+      <div style={{textAlign: "center"}}>
         <font style={{"font-size": "500", width: "100%"}}>{number[number.length - 1]}</font>
       </div>
     )
@@ -29,7 +29,3 @@ class FullScreenMode extends Component {
 }
 
 export default connect(mapStateToProps)(FullScreenMode)
-
-/*
-
-*/

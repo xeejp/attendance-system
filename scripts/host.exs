@@ -20,7 +20,6 @@ defmodule AttendanceSystem.Host do
   end
 
   def all_reset(data) do
-    flag = true
     data = data |> Map.put(:participants, Enum.into(Enum.map(data.participants, fn { id, _ } ->
       {id, Main.new_participant(data)}
     end), %{}))

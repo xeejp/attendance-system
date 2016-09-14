@@ -25,7 +25,7 @@ defmodule AttendanceSystem.Actions do
   def all_reset(data) do
     haction = get_action("reset", %{ participants: data.participants, joined: data.joined, answered: data.answered })
     paction = get_action("reset", Main.new_participant(data))
-    format(data, haction, paction)
+    format(data, haction, dispatch_to_all(data, paction))
   end
 
   def update_question(data) do
