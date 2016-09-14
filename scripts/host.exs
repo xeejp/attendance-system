@@ -59,6 +59,11 @@ defmodule AttendanceSystem.Host do
     Actions.update_number(data)
   end
 
+  def update_student_info(data, info) do
+    data = data |> Map.put(:studentInfo, info)
+    Actions.update_student_info(data)
+  end
+
   # Utilities
   def format_contents(data) do
     data

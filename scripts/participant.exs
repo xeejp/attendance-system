@@ -19,9 +19,11 @@ defmodule AttendanceSystem.Participant do
     if(length(data.participants[id].number) == data.combo) do
      a = String.slice(Enum.join(data.backup, ""), 0, data.combo)
      b = String.slice(Enum.join(data.backup, ""), 1, data.combo + 1)
+     {_, {hour, min, sec}} = :calendar.local_time
+     time = "#{String.rjust("#{hour}", 2, ?0)}:#{String.rjust("#{sec}", 2, ?0)}:#{String.rjust("#{sec}", 2, ?0)}"
      case Enum.join(data.participants[id].number, "") do
-       ^a -> Actions.success(data = data |> put_in([:participants, id, :answered], true), id)
-       ^b -> Actions.success(data = data |> put_in([:participants, id, :answered], true), id)
+       ^a -> Actions.success(data = data |> put_in([:participants, id, :answered], true) |> put_in([:participants, id, :finishtime], time), id)
+       ^b -> Actions.success(data = data |> put_in([:participants, id, :answered], true) |> put_in([:participants, id, :finishtime], time), id)
          _ -> {:ok, %{"data" =>  (data = data |> put_in([:participants, id, :number], 
            if length(data.participants[id].number) >= data.combo do
              tl(data.participants[id].number)

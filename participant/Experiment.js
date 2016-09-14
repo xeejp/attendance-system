@@ -21,7 +21,7 @@ class Experiment extends Component {
   render() {
     const { answered, snum } = this.props
     return (<div>
-    {(answered)? <p>おわったよおおおおおおおおおおおおおいえええええええええええええええ</p> : (snum == "")? <InputSnum /> : <NumberKeypad />}
+    {(answered)? <div><p>出席を受け付けました。</p><p>しばらくお待ちください。</p></div> : (snum == "")? <InputSnum /> : <NumberKeypad />}
     </div>)
   } 
 }

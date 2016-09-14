@@ -9,7 +9,7 @@ import { submitPage, nextPage, backPage } from './actions'
 
 import { getPage } from 'util/index'
 
-const pages = ["waiting", "description", "experiment", "result"]
+const pages = ["waiting", "experiment", "result"]
 
 const mapStateToProps = ({ page, joined, answered, participants }) => ({
   page, joined, answered, participants

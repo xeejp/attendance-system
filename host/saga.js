@@ -1,6 +1,6 @@
 import { put, take, call, select, fork } from 'redux-saga/effects'
 
-import { fetchContents, backPage, nextPage, submitPage, changePage, updateQuestion, updateNumber } from './actions'
+import { fetchContents, backPage, nextPage, submitPage, changePage, updateQuestion, updateNumber, updateStudentInfo } from './actions'
 
 function* changePageSaga() {
   while (true) {
@@ -14,7 +14,7 @@ function* changePageSaga() {
   }
 }
 function* backPageSaga() {
-  const pages = ["waiting", "description", "experiment", "result"]
+  const pages = ["waiting", "experiment", "result"]
   while (true) {
     yield take(`${backPage}`)
     const page = yield select(({ page }) => page)
@@ -31,7 +31,7 @@ function* backPageSaga() {
 
 
 function* nextPageSaga() {
-  const pages = ["waiting", "description", "experiment", "result"]
+  const pages = ["waiting", "experiment", "result"]
   while (true) {
     yield take(`${nextPage}`)
     const page = yield select(({ page }) => page)
@@ -70,6 +70,13 @@ function* updateNumberSaga() {
   }
 }
 
+function* updateStudentInfoSaga() {
+  while(true) {
+    const { payload } = yield take(`${updateStudentInfo}`)
+    yield call(sendData, 'update student info', payload)
+  }
+}
+
 function* saga() {
   yield fork(changePageSaga)
   yield fork(backPageSaga)
@@ -77,6 +84,7 @@ function* saga() {
   yield fork(fetchContentsSaga)
   yield fork(updateQuestionSaga)
   yield fork(updateNumberSaga)
+  yield fork(updateStudentInfoSaga)
 }
 
 export default saga

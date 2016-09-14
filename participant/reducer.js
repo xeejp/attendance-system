@@ -8,7 +8,7 @@ const reducer = concatenateReducers([
     'update contents': (_, { payload }) => payload,
     'change page': (_, { payload }) => ({ page: payload }),
     'joined': (_, { payload }) => ({ joined: payload }),
-    'reset': (_, { payload }) => ( { sequence: payload.sequence, question1: payload.question1, question2: payload.question2, active: payload.active, qswap: payload.qswap, question_text: payload.question_text }),
+    'reset': (_, { payload }) => payload,
     'result': (_, { payload: { } }) => ({
        }),
     'answered': (_, { payload }) => ({

@@ -1,7 +1,7 @@
 defmodule AttendanceSystem.Main do
   alias AttendanceSystem.Actions
 
-  @pages ["waiting", "description", "experiment", "result"]
+  @pages ["waiting", "experiment", "result"]
   @sequence ["question1", "question2", "answered"]
 
   def pages, do: @pages
@@ -11,6 +11,7 @@ defmodule AttendanceSystem.Main do
     %{
       page: "waiting",
       participants: %{},
+      studentInfo: %{},
       joined: 0,
       number: [],
       backup: [],
@@ -26,9 +27,12 @@ defmodule AttendanceSystem.Main do
   end
 
   def new_participant(data) do
+    {_, {hour, min, sec}} = :calendar.local_time
     %{
       question_text: data.question_text,
       active: true,
+      starttime: "#{String.rjust("#{hour}", 2, ?0)}:#{String.rjust("#{sec}", 2, ?0)}:#{String.rjust("#{sec}", 2, ?0)}",
+      finishtime: "",
       joined: 1,
       answered: false,
       number: [],

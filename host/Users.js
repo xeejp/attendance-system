@@ -6,11 +6,11 @@ import { Card, CardHeader, CardText } from 'material-ui/Card'
 
 import { openParticipantPage } from './actions'
 
-const User = ({ id, snum, status, openParticipantPage }) => (
-  <tr><td><a onClick={openParticipantPage(id)}>{id}</a></td><th>{snum}</th><td>{status}</td></tr>
+const User = ({ id, snum, name, starttime, finishtime, status, openParticipantPage }) => (
+  <tr><td><a onClick={openParticipantPage(id)}>{id}</a></td><th>{snum}</th><th>{name}</th><th>{starttime}</th><th>{finishtime}</th><td>{status}</td></tr>
 )
 
-const mapStateToProps = ({ participants, page, }) => ({ participants, page })
+const mapStateToProps = ({ participants, studentInfo, page }) => ({ participants, studentInfo, page })
 
 const mapDispatchToProps = (dispatch) => {
   const open = bindActionCreators(openParticipantPage, dispatch)
@@ -19,9 +19,9 @@ const mapDispatchToProps = (dispatch) => {
   }
 }
 
-const UsersList = ({participants, page, openParticipantPage }) => (
+const UsersList = ({participants, studentInfo, page, openParticipantPage }) => (
   <table>
-    <thead><tr><th>id</th><th>学籍番号</th><th>status</th></tr></thead>
+    <thead><tr><th>id</th><th>学籍番号</th><th>氏名</th><th>実験サインイン時刻</th><th>出席確認完了時刻</th><th>status</th></tr></thead>
     <tbody>
       {
         Object.keys(participants).map(id => (
@@ -30,6 +30,9 @@ const UsersList = ({participants, page, openParticipantPage }) => (
             id={id}
             snum={participants[id].snum}
             status={(participants[id].snum != "")? "回答済み" : "未回答"}
+            name={(participants[id].snum in studentInfo)? studentInfo[participants[id].snum] : "unknown"}
+            starttime={participants[id].starttime}
+            finishtime={(participants[id].finishtime != "")? participants[id].finishtime : "-"}
             openParticipantPage={openParticipantPage}
           />
         ))
@@ -38,7 +41,7 @@ const UsersList = ({participants, page, openParticipantPage }) => (
   </table>
 )
 
-const Users = ({ participants, page, openParticipantPage }) => (
+const Users = ({ participants, studentInfo, page, openParticipantPage }) => (
   <div>
     <Card>
       <CardHeader
@@ -50,6 +53,7 @@ const Users = ({ participants, page, openParticipantPage }) => (
         <UsersList
           participants={participants}
           page={page}
+          studentInfo={studentInfo}
           openParticipantPage={openParticipantPage}
         />
       </CardText>
