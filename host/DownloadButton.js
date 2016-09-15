@@ -15,7 +15,7 @@ const DownloadButton = ({ participants, studentInfo, style }) => (
       var fileName = "attendance_data.csv"
 
       var users = Object.keys(participants).map(id => {
-            return id + ',' + participants[id].snum + ',' + ((participants[id].snum != "")? "回答済み" : "未回答") + ',' + ((participants[id].snum in studentInfo)? studentInfo[participants[id].snum] : "unknown") + ',' + participants[id].starttime + ',' + ((participants[id].finishtime != "")? participants[id].finishtime : "-")
+            return id + ',' + participants[id].snum + ',' + ((participants[id].snum in studentInfo)? studentInfo[participants[id].snum] : "unknown") + ',' + participants[id].starttime + ',' + ((participants[id].finishtime != "")? participants[id].finishtime : "-") + ',' + ((participants[id].snum != "")? "回答済み" : "未回答")
       })
 
       var unanswered = Object.keys(studentInfo).map((snum, key) => {
