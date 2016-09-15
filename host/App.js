@@ -13,6 +13,7 @@ import StudentInfo from './StudentInfo'
 import Users from './Users'
 import Unanswered from './Unanswered'
 import SameUsers from './SameUsers'
+import DownloadButton from './DownloadButton'
 
 const mapStateToProps = ({loading, page, timeout, timeoutable}) => ({
   loading, page, timeout, timeoutable
@@ -60,7 +61,7 @@ class App extends Component {
           <Users /><br />
           <Unanswered /><br />
           <SameUsers /><br />
-          <EditQuestion /><StudentInfo style={{marginLeft: "2%"}} />
+          <EditQuestion /><StudentInfo style={{marginLeft: "2%"}} /><DownloadButton style={{marginLeft: "2%"}} />
           <br /><br />
           <RaisedButton label={"フルスクリーンモード"} primary={true} onClick={this.changeFullScreen.bind(this)}/><br />
         </div>

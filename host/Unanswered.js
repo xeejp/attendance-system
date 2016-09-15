@@ -9,7 +9,6 @@ const User = ({ snum, name }) => (
 
 const mapStateToProps = ({ participants, studentInfo, page }) => ({ participants, studentInfo, page })
 
-
 const UnansweredList = ({ users }) => (
   <table>
     <thead><tr><th>学籍番号</th><th>氏名</th></tr></thead>

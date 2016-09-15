@@ -93,6 +93,7 @@ class StudentInfo extends Component {
           title={"学生情報入力画面"}
           actions={actions}
           modal={false}
+          onRequestClose={this.handleClose.bind(this)}
           open={this.state.open}
           autoScrollBodyContent={true}
         >
