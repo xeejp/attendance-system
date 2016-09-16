@@ -35,7 +35,6 @@ class App extends Component {
   }
 
   changePage() {
-    console.log("円だああああああああああああああああああああああああああああああああああああああああああああああああああいやああああああああああああああああああああああああああああああああああああああ")
     clearInterval(this.timer)
     const { dispatch } = this.props
     dispatch(submitPage("result"))
