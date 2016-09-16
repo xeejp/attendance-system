@@ -40,6 +40,7 @@ defmodule AttendanceSystem do
       {"update question", question_text} -> Host.update_question(data, question_text)
       {"update number", num} -> Host.update_number(data, num) 
       {"update student info", info} -> Host.update_student_info(data, info)
+      {"change fullscreen", _} -> Host.change_fullscreen(data)
       _ -> {:ok, %{"data" => data}}
     end
     wrap_result(result)

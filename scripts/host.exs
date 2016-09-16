@@ -20,8 +20,8 @@ defmodule AttendanceSystem.Host do
   end
 
   def all_reset(data) do
-    data = data |> Map.put(:participants, Enum.into(Enum.map(data.participants, fn { id, _ } ->
-      {id, Main.new_participant(data)}
+    data = data |> Map.put(:participants, Enum.into(Enum.map(data.participants, fn { id, value } ->
+      {id, Main.new_participant(data) |> Map.put(:starttime, value.starttime)}
     end), %{}))
                 |> Map.put(:joined, Map.size(data.participants))
                 |> Map.put(:answered, 0)
@@ -52,15 +52,16 @@ defmodule AttendanceSystem.Host do
       data = data |> Map.put(:backup, data.backup ++ [num])
     end
     data = data |> Map.put(:time, data.time + 1)
-    Logger.debug("number: #{Enum.join(data.number, ", ")}")
-    Logger.debug("backup: #{Enum.join(data.backup, ", ")}")
-    Logger.debug("time : #{data.time}")
     Actions.update_number(data)
   end
 
   def update_student_info(data, info) do
     data = data |> Map.put(:studentInfo, info)
     Actions.update_student_info(data)
+  end
+
+  def change_fullscreen(data) do
+    Actions.change_fullscreen(data)
   end
 
   # Utilities

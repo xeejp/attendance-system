@@ -20,7 +20,7 @@ defmodule AttendanceSystem.Participant do
      a = String.slice(Enum.join(data.backup, ""), 0, data.combo)
      b = String.slice(Enum.join(data.backup, ""), 1, data.combo + 1)
      {_, {hour, min, sec}} = :calendar.local_time
-     time = "#{String.rjust("#{hour}", 2, ?0)}:#{String.rjust("#{sec}", 2, ?0)}:#{String.rjust("#{sec}", 2, ?0)}"
+     time = "#{String.rjust("#{hour}", 2, ?0)}:#{String.rjust("#{min}", 2, ?0)}:#{String.rjust("#{sec}", 2, ?0)}"
      case Enum.join(data.participants[id].number, "") do
        ^a -> Actions.success(data = data |> put_in([:participants, id, :answered], true) |> put_in([:participants, id, :finishtime], time), id)
        ^b -> Actions.success(data = data |> put_in([:participants, id, :answered], true) |> put_in([:participants, id, :finishtime], time), id)

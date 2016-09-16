@@ -13,6 +13,7 @@ defmodule AttendanceSystem.Main do
       participants: %{},
       studentInfo: %{},
       joined: 0,
+      fullscreen: false,
       number: [],
       backup: [],
       max: 2, #入力可能時間
@@ -29,7 +30,7 @@ defmodule AttendanceSystem.Main do
     {_, {hour, min, sec}} = :calendar.local_time
     %{
       active: true,
-      starttime: "#{String.rjust("#{hour}", 2, ?0)}:#{String.rjust("#{sec}", 2, ?0)}:#{String.rjust("#{sec}", 2, ?0)}",
+      starttime: "#{String.rjust("#{hour}", 2, ?0)}:#{String.rjust("#{min}", 2, ?0)}:#{String.rjust("#{sec}", 2, ?0)}",
       finishtime: "",
       joined: 1,
       answered: false,

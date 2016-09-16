@@ -1,7 +1,7 @@
 ﻿import React, { Component } from 'react'
 import { connect } from 'react-redux'
 
-import { fetchContents, submitPage } from './actions'
+import { fetchContents, submitPage, changeFullScreen } from './actions'
 
 import RaisedButton from 'material-ui/RaisedButton'
 import Divider from 'material-ui/Divider'
@@ -15,14 +15,13 @@ import Unanswered from './Unanswered'
 import SameUsers from './SameUsers'
 import DownloadButton from './DownloadButton'
 
-const mapStateToProps = ({loading, page, timeout, timeoutable}) => ({
-  loading, page, timeout, timeoutable
+const mapStateToProps = ({loading, page, timeout, timeoutable, fullscreen}) => ({
+  loading, page, timeout, timeoutable, fullscreen
 })
 
 class App extends Component {
   constructor(props, context) {
     super(props, context)
-    this.state = { FullScreenFlag: false }
   }
 
   componentDidMount() {
@@ -31,21 +30,23 @@ class App extends Component {
   }
 
   changeFullScreen() {
-    this.setState({ FullScreenFlag: true })
+    const { dispatch } = this.props
+    dispatch(changeFullScreen())
   }
 
   changePage() {
+    console.log("円だああああああああああああああああああああああああああああああああああああああああああああああああああいやああああああああああああああああああああああああああああああああああああああ")
     clearInterval(this.timer)
-    this.setState({ FullScreenFlag: false })
     const { dispatch } = this.props
     dispatch(submitPage("result"))
+    dispatch(fetchContents())
   }
 
   render() {
-    const { loading, page, timeout, timeoutable } = this.props
+    const { loading, page, timeout, timeoutable, fullscreen } = this.props
     if (loading) {
       return <p>ロード中です。</p>
-    } else if (this.state.FullScreenFlag) {
+    } else if (fullscreen && page == "experiment") {
       if(timeoutable) this.timer = setInterval(this.changePage.bind(this), timeout * 60000)
       return <FullScreenMode />
     } else {
@@ -63,7 +64,7 @@ class App extends Component {
           <SameUsers /><br />
           <EditQuestion /><StudentInfo style={{marginLeft: "2%"}} /><DownloadButton style={{marginLeft: "2%"}} />
           <br /><br />
-          <RaisedButton label={"フルスクリーンモード"} primary={true} onClick={this.changeFullScreen.bind(this)}/><br />
+          <RaisedButton label={"フルスクリーンモード"} primary={true}disabled={page != "experiment"} onClick={this.changeFullScreen.bind(this)}/><br />
         </div>
       )
     }

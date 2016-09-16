@@ -17,6 +17,7 @@ const reducer = concatenateReducers([
     'qupdate': (_, { payload: { max, combo, seconds, timeout, timeoutable } }) => ({ max: max, combo: combo, seconds: seconds, timeout, timeoutable }),
     'nupdate': (_, { payload }) => ({ number: payload }),
     'sInfoupdate': (_, { payload }) => ({ studentInfo: payload}),
+    'fullscreen': (_, { payload }) => ({ fullscreen: payload }),
   }, {}),
   handleAction('update contents', () => ({ loading: false }), { loading: true })
 ])

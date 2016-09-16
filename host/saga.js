@@ -1,6 +1,6 @@
 import { put, take, call, select, fork } from 'redux-saga/effects'
 
-import { fetchContents, backPage, nextPage, submitPage, changePage, updateQuestion, updateNumber, updateStudentInfo } from './actions'
+import { fetchContents, backPage, nextPage, submitPage, changePage, updateQuestion, updateNumber, updateStudentInfo, changeFullScreen } from './actions'
 
 function* changePageSaga() {
   while (true) {
@@ -9,6 +9,9 @@ function* changePageSaga() {
     if(payload == "waiting" || payload == "experiment") {
       yield call(sendData, 'all reset')
       yield call(sendData, 'update number', Math.floor( Math.random() * 10))
+    }
+    if(payload == "experiment") {
+      yield put(changeFullScreen())
     }
     yield put(changePage(payload))
   }
@@ -77,6 +80,13 @@ function* updateStudentInfoSaga() {
   }
 }
 
+function* changeFullScreenSaga() {
+  while(true) {
+    yield take(`${changeFullScreen}`)
+    yield call(sendData, 'change fullscreen')
+  }
+}
+
 function* saga() {
   yield fork(changePageSaga)
   yield fork(backPageSaga)
@@ -85,6 +95,7 @@ function* saga() {
   yield fork(updateQuestionSaga)
   yield fork(updateNumberSaga)
   yield fork(updateStudentInfoSaga)
+  yield fork(changeFullScreenSaga)
 }
 
 export default saga
