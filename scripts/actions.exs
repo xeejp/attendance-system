@@ -24,7 +24,7 @@ defmodule AttendanceSystem.Actions do
 
   def all_reset(data) do
     haction = get_action("reset", %{ participants: data.participants, joined: data.joined, answered: data.answered })
-    paction = get_action("reset", Main.new_participant(data))
+    paction = get_action("reset", Main.new_participant(data) |> Map.put(:joined, Map.size data.participants))
     format(data, haction, dispatch_to_all(data, paction))
   end
 

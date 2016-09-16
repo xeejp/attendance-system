@@ -21,7 +21,7 @@ defmodule AttendanceSystem.Host do
 
   def all_reset(data) do
     data = data |> Map.put(:participants, Enum.into(Enum.map(data.participants, fn { id, value } ->
-      {id, Main.new_participant(data) |> Map.put(:starttime, value.starttime)}
+      {id, Main.new_participant(data) |> Map.put(:starttime, value.starttime) |> Map.put(:joined, Map.size data.participants)}
     end), %{}))
                 |> Map.put(:joined, Map.size(data.participants))
                 |> Map.put(:answered, 0)
