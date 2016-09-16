@@ -15,19 +15,19 @@ const DownloadButton = ({ participants, studentInfo, style }) => (
       var fileName = "attendance_data.csv"
 
       var users = Object.keys(participants).map(id => {
-            return id + ',' + participants[id].snum + ',' + ((participants[id].snum in studentInfo)? studentInfo[participants[id].snum] : "unknown") + ',' + participants[id].starttime + ',' + ((participants[id].finishtime != "")? participants[id].finishtime : "-") + ',' + ((participants[id].snum != "")? "回答済み" : "未回答")
+            return id + ',' + ((participants[id].finishtime != "")? participants[id].snum : '-') + ',' + ((participants[id].snum in studentInfo && participants[id].finishtime != "")? studentInfo[participants[id].snum] : "unknown") + ',' + participants[id].starttime + ',' + ((participants[id].finishtime != "")? participants[id].finishtime : "-") + ',' + ((participants[id].snum != "" && participants[id].finishtime != "")? "回答済み" : "未回答")
       })
 
       var unanswered = Object.keys(studentInfo).map((snum, key) => {
       for(var id in participants) 
-         if(snum == participants[id].snum) return ""
+         if(snum == participants[id].snum && participants[id].finishtime != "") return ""
          return snum + ',' + studentInfo[snum]
       }).filter(s => s != "")
 
       var sameusers = new Object()
-      for(var id in participants) if(participants[id].snum != "") users[participants[id].snum] = 0
-      for(var id in participants) if(participants[id].snum != "") users[participants[id].snum]++
-      sameusers = Object.keys(users).map(snum => [snum, (snum in studentInfo)? studentInfo[snum] : "unknown", users[snum]]).filter(l => {return l[2] >= 2}).map(user => { return user[0] + ',' + user[1] + ',' + user[2] + '件' })
+      for(var id in participants) if(participants[id].snum != "" && participants[id].finishtime != "") sameusers[participants[id].snum] = 0
+      for(var id in participants) if(participants[id].snum != "" && participants[id].finishtime != "") sameusers[participants[id].snum]++
+      sameusers = Object.keys(sameusers).map(snum => [snum, (snum in studentInfo)? studentInfo[snum] : "unknown", sameusers[snum]]).filter(l => {return l[2] >= 2}).map(user => { return user[0] + ',' + user[1] + ',' + user[2] + '件' })
 
       var content
       = "登録者 "                  + users.length           + "人\n" + "id,学籍番号,氏名,実験サインイン時刻,出席確認完了時刻,status\n" + users.join('\n')           + '\n'

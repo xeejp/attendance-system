@@ -19,8 +19,8 @@ const SameUsersList = ({ users }) => (
 
 const SameUsers = ({ participants, studentInfo }) => {
   var users = new Object()
-  for(var id in participants) if(participants[id].snum != "") users[participants[id].snum] = 0
-  for(var id in participants) if(participants[id].snum != "") users[participants[id].snum]++
+  for(var id in participants) if(participants[id].snum != "" && participants[id].finishtime != "") users[participants[id].snum] = 0
+  for(var id in participants) if(participants[id].snum != "" && participants[id].finishtime != "") users[participants[id].snum]++
   users = Object.keys(users).map(snum => [snum, (snum in studentInfo)? studentInfo[snum] : "unknown", users[snum]]).filter(l => {return l[2] >= 2}).map((user, key) => <User key={key} snum={user[0]} name={user[1]} same={user[2]} />)
   return (
   <div>

@@ -19,7 +19,7 @@ const UnansweredList = ({ users }) => (
 const Unanswered = ({ participants, studentInfo, page}) => {
     var users = Object.keys(studentInfo).map((snum, key) => {
      for(var id in participants) 
-        if(snum == participants[id].snum) return null
+        if(snum == participants[id].snum && participants[id].finishtime != "") return null
      return (
         <User
           key={key}

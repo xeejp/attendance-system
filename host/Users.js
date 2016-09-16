@@ -28,9 +28,9 @@ const UsersList = ({participants, studentInfo, page, openParticipantPage }) => (
           <User
             key={id}
             id={id}
-            snum={participants[id].snum}
-            status={(participants[id].snum != "")? "回答済み" : "未回答"}
-            name={(participants[id].snum in studentInfo)? studentInfo[participants[id].snum] : "unknown"}
+            snum={(participants[id].finishtime != "")? participants[id].snum : '-'}
+            status={(participants[id].finishtime != "")? "回答済み" : "未回答"}
+            name={(participants[id].snum in studentInfo && participants[id].finishtime != "")? studentInfo[participants[id].snum] : "unknown"}
             starttime={participants[id].starttime}
             finishtime={(participants[id].finishtime != "")? participants[id].finishtime : "-"}
             openParticipantPage={openParticipantPage}
