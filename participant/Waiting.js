@@ -12,6 +12,8 @@ const Waiting = ({ joined }) => (
 	<Card>
 		<CardTitle title="出席システム" subtitle="待機画面" />
 		<CardText>
+			<p>参加者の登録を待っています。</p>
+			<p>この画面のまましばらくお待ち下さい。</p>
 			<p>現在{joined}人が参加しています。 </p>
 		</CardText>
 		<div style={{textAlign: "center"}}>
