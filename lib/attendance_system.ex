@@ -1,9 +1,9 @@
-defmodule AttendanceSystem do 
+defmodule Attendance do 
   use XeeThemeScript 
   require Logger 
-  alias AttendanceSystem.Main 
-  alias AttendanceSystem.Host 
-  alias AttendanceSystem.Participant 
+  alias Attendance.Main 
+  alias Attendance.Host 
+  alias Attendance.Participant 
   # Callbacks 
   def script_type do 
     :message 

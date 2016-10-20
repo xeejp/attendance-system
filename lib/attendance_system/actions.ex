@@ -1,7 +1,7 @@
-defmodule AttendanceSystem.Actions do
-  alias AttendanceSystem.Participant
-  alias AttendanceSystem.Host
-  alias AttendanceSystem.Main
+defmodule Attendance.Actions do
+  alias Attendance.Participant
+  alias Attendance.Host
+  alias Attendance.Main
 
   require Logger
 

@@ -1,5 +1,5 @@
-defmodule AttendanceSystem.Participant do
-  alias AttendanceSystem.Actions
+defmodule Attendance.Participant do
+  alias Attendance.Actions
   
   require Logger
 

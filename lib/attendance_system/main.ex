@@ -1,5 +1,5 @@
-defmodule AttendanceSystem.Main do
-  alias AttendanceSystem.Actions
+defmodule Attendance.Main do
+  alias Attendance.Actions
 
   @pages ["waiting", "experiment", "result"]
   @sequence ["question1", "question2", "answered"]
