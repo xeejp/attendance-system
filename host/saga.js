@@ -1,6 +1,6 @@
 import { put, take, call, select, fork } from 'redux-saga/effects'
 
-import { fetchContents, backPage, nextPage, submitPage, changePage, updateQuestion, updateNumber, updateStudentInfo, changeFullScreen } from './actions'
+import { fetchContents, backPage, nextPage, submitPage, changePage, updateQuestion, updateNumber, updateStudentInfo, changeFullScreen, escapeFullScreen } from './actions'
 
 function* changePageSaga() {
   while (true) {
@@ -87,6 +87,13 @@ function* changeFullScreenSaga() {
   }
 }
 
+function* escapeFullScreenSaga() {
+  while(true) {
+    yield take(`${escapeFullScreen}`)
+    yield call(sendData, 'escape fullscreen')
+  }
+}
+
 function* saga() {
   yield fork(changePageSaga)
   yield fork(backPageSaga)
@@ -96,6 +103,7 @@ function* saga() {
   yield fork(updateNumberSaga)
   yield fork(updateStudentInfoSaga)
   yield fork(changeFullScreenSaga)
+  yield fork(escapeFullScreenSaga)
 }
 
 export default saga

@@ -64,6 +64,10 @@ defmodule Attendance.Host do
     Actions.change_fullscreen(data)
   end
 
+  def escape_fullscreen(data) do
+    Actions.escape_fullscreen(data)
+  end
+
   # Utilities
   def format_contents(data) do
     data

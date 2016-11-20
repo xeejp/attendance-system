@@ -29,6 +29,7 @@ defmodule Attendance do
       {"update number", num} -> Host.update_number(data, num)  
       {"update student info", info} -> Host.update_student_info(data, info) 
       {"change fullscreen", _} -> Host.change_fullscreen(data) 
+      {"escape fullscreen", _} -> Host.escape_fullscreen(data) 
       _ -> {:ok, %{"data" => data}} 
     end 
     wrap_result(result) 

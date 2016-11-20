@@ -47,6 +47,10 @@ defmodule Attendance.Actions do
     format(data, get_action("fullscreen", true))
   end
 
+  def escape_fullscreen(data) do
+    format(data, get_action("fullscreen", false))
+  end
+
   def update_participant_contents(data, id) do
     participant = dispatch_to(id, get_action("update contents", Participant.format_contents(data, id)))
     format(data, nil, participant)

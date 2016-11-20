@@ -10,5 +10,6 @@ export const updateQuestion = createAction('update question', question_text => q
 export const updateNumber = createAction('update number')
 export const updateStudentInfo = createAction('update student info', studentInfo => studentInfo)
 export const changeFullScreen = createAction('change fullscreen')
+export const escapeFullScreen = createAction('escape fullscreen')
 
 export const openParticipantPage = createAction('open participant page')
