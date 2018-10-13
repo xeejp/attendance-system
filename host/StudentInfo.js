@@ -74,11 +74,11 @@ class StudentInfo extends Component {
         label="適用"
         primary={true}
         keyboardFocused={true}
-        onTouchTap={this.submit.bind(this)}
+        onClick={this.submit.bind(this)}
       />,
       <FlatButton
         label="キャンセル"
-        onTouchTap={this.handleClose.bind(this)}
+        onClick={this.handleClose.bind(this)}
       />,
     ]
     return (

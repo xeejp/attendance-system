@@ -41,15 +41,15 @@ defmodule Attendance.Host do
   end
 
   def update_number(data, num) do
-    if length(data.number) >= data.max do
-      data = data |> Map.put(:number, tl(data.number) ++ [num])
+    data = if length(data.number) >= data.max do
+      data |> Map.put(:number, tl(data.number) ++ [num])
     else
-      data = data |> Map.put(:number, data.number ++ [num])
+      data |> Map.put(:number, data.number ++ [num])
     end
-    if length(data.backup) >= data.combo + 1 do
-      data = data |> Map.put(:backup, tl(data.backup) ++ [num])
+    data = if length(data.backup) >= data.combo + 1 do
+      data |> Map.put(:backup, tl(data.backup) ++ [num])
     else
-      data = data |> Map.put(:backup, data.backup ++ [num])
+      data |> Map.put(:backup, data.backup ++ [num])
     end
     data = data |> Map.put(:time, data.time + 1)
     Actions.update_number(data)
